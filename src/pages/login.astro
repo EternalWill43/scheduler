@@ -1,0 +1,18 @@
+---
+import Login from "../components/Login.svelte";
+let cookie = Astro.request.headers.get("cookie");
+if (!cookie) {
+    Astro.response.headers.set("Set-Cookie", "broken=123; Path=/;");
+} else {
+    console.log(cookie);
+}
+---
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body
+    class="h-screen bg-gray-900 text-white container mx-auto flex justify-center"
+>
+    <Login client:load />
+</body>
