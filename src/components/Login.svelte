@@ -1,36 +1,47 @@
 <script>
-    // Redirect to /register
+    let uname = "";
+    let pword = "";
     let invalidInputs = false;
     function handleRegister(e) {
         location.href = "/register";
     }
+
+    function handleLogin() {
         if (uname.length < 1 || pword.length < 1) {
             invalidInputs = true;
             return;
         }
+        fetch("/api/v1/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                uname: uname,
+                pword: pword,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.success) {
+                    location.href = "/";
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 </script>
 
-<div class="flex flex-col justify-center">
-    <div class="border-4 border-gray-800 rounded p-3 container">
-        <div class="mb-3 font-bold text-lg text-center antialiased underline">
+<div class="container content-center mx-auto flex justify-center">
+    <div class="card w-96 bg-neutral">
+        <h2 class="text-center font-bold antialiased m-2 text-xl mt-4">
             Login
-        </div>
-        <div class="font-bold">Username</div>
-        <div class="m-2"><input class="p-2 text-black" type="text" /></div>
-        <div class="font-bold">Password</div>
-        <div class="m-2">
-            <input class="p-2 text-black" type="password" />
-        </div>
-        <div
-            class="cursor-pointer block text-center m-2 p-2 rounded hover:bg-sky-700 bg-sky-600"
-        >
-            Login
-        </div>
-        <div
-            on:click={handleRegister}
-            class="cursor-pointer text-center block m-2 p-2 rounded hover:bg-sky-700 bg-sky-600"
-        >
-            Register
+        </h2>
+        <div class="card-body">
             {#if invalidInputs}
                 <div class="alert alert-error shadow-lg">
                     <div>
@@ -50,6 +61,26 @@
                     </div>
                 </div>
             {/if}
+            <h2 class="card-title">Username</h2>
+            <input
+                bind:value={uname}
+                type="text"
+                class="input w-full max-w-xs"
+            />
+            <h2 class="card-title">Password</h2>
+            <input
+                bind:value={pword}
+                type="password"
+                class="input w-full max-w-xs mb-3"
+            />
+            <div class="card-actions flex justify-evenly">
+                <button on:click={handleLogin} class="w-1/3 btn btn-primary"
+                    >Login</button
+                >
+                <button on:click={handleRegister} class="w-1/3 btn btn-primary"
+                    >Register</button
+                >
+            </div>
         </div>
     </div>
 </div>
