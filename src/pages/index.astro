@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Calendar from "../components/Calendar.svelte";
 const cookie = Astro.request.headers.get("cookie");
 if (!cookie) {
 	Astro.response.status = 401;
@@ -10,6 +11,7 @@ if (!cookie) {
 <Layout title="Home Page">
 	<div class="h-screen container mx-auto font-bold text-center">
 		<div>This is the home page</div>
+		<Calendar client:load />
 	</div>
 </Layout>
 

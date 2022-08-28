@@ -69,6 +69,11 @@
             />
             <h2 class="card-title">Password</h2>
             <input
+                on:keydown={(e) => {
+                    if (e.key === "Enter") {
+                        handleLogin();
+                    }
+                }}
                 bind:value={pword}
                 type="password"
                 class="input w-full max-w-xs mb-3"
