@@ -17,6 +17,7 @@
     "svelte-calendar": "^3.1.6"
   },
   "dependencies": {
+    "@astrojs/vercel": "^1.0.1",
     "autoprefixer": "^10.4.8",
     "bcryptjs": "^2.4.3",
     "daisyui": "^2.24.0",
