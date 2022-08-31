@@ -8,6 +8,7 @@ specifiers:
   autoprefixer: ^10.4.8
   bcryptjs: ^2.4.3
   daisyui: ^2.24.0
+  dayjs: ^1.11.5
   jsonwebtoken: ^8.5.1
   mongodb: ^4.9.0
   mysql2: ^2.3.3
@@ -22,6 +23,7 @@ dependencies:
   autoprefixer: 10.4.8_postcss@8.4.16
   bcryptjs: 2.4.3
   daisyui: 2.24.0_25hquoklqeoqwmt7fwvvcyxm5e
+  dayjs: 1.11.5
   jsonwebtoken: 8.5.1
   mongodb: 4.9.0
   mysql2: 2.3.3
@@ -150,7 +152,7 @@ packages:
       '@proload/core': 0.3.2
       autoprefixer: 10.4.8_postcss@8.4.16
       postcss: 8.4.16
-      tailwindcss: 3.1.8_postcss@8.4.16
+      tailwindcss: 3.1.8
     transitivePeerDependencies:
       - ts-node
     dev: true
@@ -1210,7 +1212,7 @@ packages:
       css-selector-tokenizer: 0.8.0
       postcss: 8.4.16
       postcss-js: 4.0.0_postcss@8.4.16
-      tailwindcss: 3.1.8_postcss@8.4.16
+      tailwindcss: 3.1.8
     transitivePeerDependencies:
       - ts-node
     dev: false
@@ -1221,7 +1223,6 @@ packages:
 
   /dayjs/1.11.5:
     resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
-    dev: true
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -3992,12 +3993,10 @@ packages:
       typescript: 4.8.2
     dev: true
 
-  /tailwindcss/3.1.8_postcss@8.4.16:
+  /tailwindcss/3.1.8:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
-    peerDependencies:
-      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
