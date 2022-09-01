@@ -31,9 +31,9 @@
             </label>
             <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                 <li>
-                    <a href="/" class="justify-between"> Manage Employees </a>
+                    <a href="/manage" class="justify-between"> Manage Employees </a>
                 </li>
-                <li><a href="/">Manage Departments</a></li>
+                <li><a href="/add">Manage Departments</a></li>
                 <li><a href="/">Manage Shifts</a></li>
             </ul>
         </div>
