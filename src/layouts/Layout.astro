@@ -22,5 +22,11 @@ const { title } = Astro.props as Props;
 	<body class="bg-gray-900 text-white">
 		<Navbar client:load />
 		<slot class="container mx-auto" />
+		<style>
+			html,
+			body {
+				height: 100%;
+			}
+		</style>
 	</body>
 </html>
