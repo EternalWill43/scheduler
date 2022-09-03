@@ -66,6 +66,7 @@
                 bind:value={uname}
                 type="text"
                 class="input w-full max-w-xs"
+                autofocus
             />
             <h2 class="card-title">Password</h2>
             <input
