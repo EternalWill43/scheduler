@@ -1,0 +1,10 @@
+---
+import DepartmentList from "../components/DepartmentList.svelte";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Department Management">
+    <div class="h-screen container mx-auto font-bold text-center">
+        <DepartmentList client:load />
+    </div>
+</Layout>

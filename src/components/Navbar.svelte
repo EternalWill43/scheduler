@@ -35,8 +35,8 @@
         <li>
           <a href="/manage" class="justify-between"> Manage Employees </a>
         </li>
-        <li><a href="/add">Manage Departments</a></li>
-        <li><a href="/">Manage Shifts</a></li>
+        <li><a href="/departments">Manage Departments</a></li>
+        <li><a href="/shifts">Manage Shifts</a></li>
       </ul>
     </div>
   </div>
