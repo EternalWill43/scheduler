@@ -7,7 +7,25 @@
     let day2 = "";
     let success = false;
     let err = false;
+    let missing = false;
+    function isMissing() {
+        if (
+            firstName == "" ||
+            lastName == "" ||
+            department == "" ||
+            shift == "" ||
+            day1 == "" ||
+            day2 == ""
+        ) {
+            missing = true;
+            return true;
+        } else {
+            missing = false;
+            return false;
+        }
+    }
     function handleSubmit() {
+        if (isMissing()) return;
         fetch("/api/v1/addemployee", {
             method: "POST",
             headers: {
@@ -41,48 +59,70 @@
     }
 </script>
 
-<div class="flex flex-col m-2 align-middle justify-center items-center w-full">
-    <div class="font-bold text-xl m-2">Add Employee</div>
+<div
+    class="m-1 flex flex-col m-2 align-middle justify-center items-center w-full"
+>
+    <div class="m-1 font-bold text-xl m-2">Add Employee</div>
     <input
-        class="w-full input input-bordered max-w-xs"
+        class="m-1 w-full input input-bordered max-w-xs"
         type="text"
         bind:value={firstName}
         placeholder="First Name"
     />
     <input
-        class="w-full input input-bordered max-w-xs"
+        class="m-1 w-full input input-bordered max-w-xs"
         type="text"
         bind:value={lastName}
         placeholder="Last Name"
     />
-    <input
-        class="w-full input input-bordered max-w-xs"
-        type="text"
+    <select
         bind:value={department}
-        placeholder="Department Name"
-    />
-    <input
-        class="w-full input input-bordered max-w-xs"
-        type="text"
+        class="m-1 select select-bordered w-full max-w-xs"
+    >
+        <option>Parking Utility</option>
+        <option>GTU</option>
+        <option>Cashier</option>
+        <option>Head Cashier</option>
+    </select>
+    <select
         bind:value={shift}
-        placeholder="Shift i.e., 2200"
-    />
-    <input
-        class="w-full input input-bordered max-w-xs"
-        type="text"
+        class="m-1 select select-bordered w-full max-w-xs"
+    >
+        <option>2200</option>
+        <option>0600</option>
+        <option>1400</option>
+    </select>
+    <select
         bind:value={day1}
-        placeholder="First day off i.e., Sunday"
-    />
-    <input
-        class="w-full input input-bordered max-w-xs"
-        type="text"
+        class="m-1 select select-bordered w-full max-w-xs"
+    >
+        <option>Sunday</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>>
+        <option>Saturday</option>
+    </select>
+    <select
         bind:value={day2}
-        placeholder="Second day off i.e., Monday"
-    />
+        class="m-1 select select-bordered w-full max-w-xs"
+    >
+        <option>Sunday</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>>
+        <option>Saturday</option>
+    </select>
     {#if success}
-        <div class="m-2 badge badge-success">Successfully added employee</div>
+        <div class="m-2 badge badge-success">Successfully edited employee</div>
     {:else if err}
         <div class="m-2 badge badge-error">Error adding employee</div>
+    {/if}
+    {#if missing}
+        <div class="m-2 badge badge-error">You are missing some fields</div>
     {/if}
     <button class="w-1/2 m-2 btn btn-primary" on:click={handleSubmit}
         >Submit Employee</button
