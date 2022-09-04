@@ -17,7 +17,9 @@
     let shifts = ["2200", "0600", "1400", "All Shifts"];
     // let day = new Date($store?.selected).getDay();
     let defaultId = 3;
+    let currentShift = "2200";
     let defaultShift = 0;
+    let currentDepartment = "Cashier";
 </script>
 
 <div class="not-printable highindex m-4">
@@ -29,30 +31,78 @@
     ]}
 </div>
 
-<div class="m-4 not-printable">
-    <button on:click={() => (defaultId = 1)} class="m-1 btn btn-primary"
-        >Parking</button
+<div class="md:m-4 not-printable">
+    <button
+        on:click={() => {
+            defaultId = 1;
+            currentDepartment = "Parking";
+        }}
+        class="m-1 btn btn-primary {currentDepartment === 'Parking'
+            ? 'btn-outline'
+            : ''}">Parking</button
     >
-    <button on:click={() => (defaultId = 2)} class="m-1 btn btn-primary"
-        >GTU</button
+    <button
+        on:click={() => {
+            defaultId = 2;
+            currentDepartment = "GTU";
+        }}
+        class="m-1 btn btn-primary {currentDepartment === 'GTU'
+            ? 'btn-outline'
+            : ''}">GTU</button
     >
-    <button on:click={() => (defaultId = 3)} class="m-1 btn btn-primary"
-        >Cashier</button
+    <button
+        on:click={() => {
+            defaultId = 3;
+            currentDepartment = "Cashier";
+        }}
+        class="m-1 btn btn-primary {currentDepartment === 'Cashier'
+            ? 'btn-outline'
+            : ''}">Cashier</button
     >
-    <button on:click={() => (defaultId = 4)} class="m-1 btn btn-primary"
-        >Head Cashier</button
+    <button
+        on:click={() => {
+            defaultId = 4;
+            currentDepartment = "Head Cashier";
+        }}
+        class="m-1 btn btn-primary {currentDepartment === 'Head Cashier'
+            ? 'btn-outline'
+            : ''}">Head Cashier</button
     >
-    <button on:click={() => (defaultShift = 0)} class="m-1 btn btn-success"
-        >2200</button
+    <button
+        on:click={() => {
+            defaultShift = 0;
+            currentShift = "2200";
+        }}
+        class="m-1 btn btn-success {currentShift === '2200'
+            ? 'btn-outline'
+            : ''}">2200</button
     >
-    <button on:click={() => (defaultShift = 1)} class="m-1 btn btn-success"
-        >0600</button
+    <button
+        on:click={() => {
+            defaultShift = 1;
+            currentShift = "0600";
+        }}
+        class="m-1 btn btn-success {currentShift === '0600'
+            ? 'btn-outline'
+            : ''}">0600</button
     >
-    <button on:click={() => (defaultShift = 2)} class="m-1 btn btn-success"
-        >1400</button
+    <button
+        on:click={() => {
+            defaultShift = 2;
+            currentShift = "1400";
+        }}
+        class="m-1 btn btn-success {currentShift === '1400'
+            ? 'btn-outline'
+            : ''}">1400</button
     >
-    <button on:click={() => (defaultShift = 3)} class="m-1 btn btn-success"
-        >All</button
+    <button
+        on:click={() => {
+            defaultShift = 3;
+            currentShift = "All Shifts";
+        }}
+        class="m-1 btn btn-success {currentShift === 'All Shifts'
+            ? 'btn-outline'
+            : ''}">All</button
     >
     <button on:click={() => (week = !week)} class="m-1 btn btn-warning"
         >{week ? "Week" : "Day"}</button
@@ -121,6 +171,7 @@
 <style>
     .table th:first-child {
         position: relative !important;
+        z-index: 0 !important;
     }
     .highindex {
         z-index: 999;
