@@ -112,7 +112,7 @@
 <div class="m-4 text-xl">
     {#if week}
         <u
-            >{depts[defaultId - 1]} List for the week for {shifts[
+            >{depts[defaultId - 1]} List For The Week For {shifts[
                 defaultShift
             ]}</u
         >
