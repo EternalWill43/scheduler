@@ -48,8 +48,8 @@
         >Remove Employee</button
     >
     {#if success}
-        <div class="m-2 badge badge-success">Successfully added employee</div>
+        <div class="m-2 badge badge-success">Successfully removed employee</div>
     {:else if err}
-        <div class="m-2 badge badge-error">Error adding employee</div>
+        <div class="m-2 badge badge-error">Error removing employee</div>
     {/if}
 </div>
