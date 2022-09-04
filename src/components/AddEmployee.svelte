@@ -79,7 +79,7 @@
         bind:value={department}
         class="m-1 select select-bordered w-full max-w-xs"
     >
-        <option>Parking Utility</option>
+        <option>Parking</option>
         <option>GTU</option>
         <option>Cashier</option>
         <option>Head Cashier</option>
