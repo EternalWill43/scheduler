@@ -33,13 +33,13 @@
 <div class="w-full flex flex-col align-middle items-center">
     <div class="font-bold text-xl m-2">Remove Employee</div>
     <input
-        class="w-full input input-bordered max-w-xs"
+        class="m-1 w-full input input-bordered max-w-xs"
         type="text"
         bind:value={firstName}
         placeholder="First Name"
     />
     <input
-        class="w-full input input-bordered max-w-xs"
+        class="m-1 w-full input input-bordered max-w-xs"
         type="text"
         bind:value={lastName}
         placeholder="Last Name"
