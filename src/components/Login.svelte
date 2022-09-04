@@ -62,6 +62,7 @@
                 </div>
             {/if}
             <h2 class="card-title">Username</h2>
+            <!-- svelte-ignore a11y-autofocus -->
             <input
                 bind:value={uname}
                 type="text"

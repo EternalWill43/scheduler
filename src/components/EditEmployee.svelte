@@ -26,7 +26,7 @@
     }
     function handleSubmit() {
         if (isMissing()) return;
-        fetch("/api/v1/addemployee", {
+        fetch("/api/v1/editemployee", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -62,7 +62,7 @@
 <div
     class="m-1 flex flex-col m-2 align-middle justify-center items-center w-full"
 >
-    <div class="m-1 font-bold text-xl m-2">Add Employee</div>
+    <div class="m-1 font-bold text-xl m-2">Edit Employee</div>
     <input
         class="m-1 w-full input input-bordered max-w-xs"
         type="text"
