@@ -4,8 +4,17 @@
     let store;
     let empList = fetch("/api/v1/getemployees").then((res) => res.json());
     let depts = ["Parking Utility", "GTU Agents", "Cashier", "Head Cashiers"];
-    let daysOff = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    let shifts = ["2200", "0600", "1400"];
+    let week = false;
+    let daysOff = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
+    let shifts = ["2200", "0600", "1400", "All Shifts"];
     // let day = new Date($store?.selected).getDay();
     let defaultId = 3;
     let defaultShift = 0;
@@ -14,19 +23,53 @@
 <div class="not-printable highindex m-4">
     <Datepicker bind:store />
 </div>
-<div class="m-4">{dayjs($store?.selected).format("MM/DD/YYYY")}, {daysOff[new Date($store?.selected).getDay()]}</div>
-
-<div class="m-4 not-printable">
-    <button on:click={() => (defaultId = 1)} class="btn btn-primary">Parking</button>
-    <button on:click={() => (defaultId = 2)} class="btn btn-primary">GTU</button>
-    <button on:click={() => (defaultId = 3)} class="btn btn-primary">Cashier</button>
-    <button on:click={() => (defaultId = 4)} class="btn btn-primary">Head Cashier</button>
-    <button on:click={() => (defaultShift = 0)} class="btn btn-success">2200</button>
-    <button on:click={() => (defaultShift = 1)} class="btn btn-success">0600</button>
-    <button on:click={() => (defaultShift = 2)} class="btn btn-success">1400</button>
+<div class="m-4">
+    {dayjs($store?.selected).format("MM/DD/YYYY")}, {daysOff[
+        new Date($store?.selected).getDay()
+    ]}
 </div>
 
-<div class="m-4 text-xl"><u>{depts[defaultId - 1]} List For {shifts[defaultShift]}</u></div>
+<div class="m-4 not-printable">
+    <button on:click={() => (defaultId = 1)} class="m-1 btn btn-primary"
+        >Parking</button
+    >
+    <button on:click={() => (defaultId = 2)} class="m-1 btn btn-primary"
+        >GTU</button
+    >
+    <button on:click={() => (defaultId = 3)} class="m-1 btn btn-primary"
+        >Cashier</button
+    >
+    <button on:click={() => (defaultId = 4)} class="m-1 btn btn-primary"
+        >Head Cashier</button
+    >
+    <button on:click={() => (defaultShift = 0)} class="m-1 btn btn-success"
+        >2200</button
+    >
+    <button on:click={() => (defaultShift = 1)} class="m-1 btn btn-success"
+        >0600</button
+    >
+    <button on:click={() => (defaultShift = 2)} class="m-1 btn btn-success"
+        >1400</button
+    >
+    <button on:click={() => (defaultShift = 3)} class="m-1 btn btn-success"
+        >All</button
+    >
+    <button on:click={() => (week = !week)} class="m-1 btn btn-warning"
+        >{week ? "Week" : "Day"}</button
+    >
+</div>
+
+<div class="m-4 text-xl">
+    {#if week}
+        <u
+            >{depts[defaultId - 1]} List for the week for {shifts[
+                defaultShift
+            ]}</u
+        >
+    {:else}
+        <u>{depts[defaultId - 1]} List For {shifts[defaultShift]}</u>
+    {/if}
+</div>
 
 {#await empList}
     <p>Waiting for data...</p>
@@ -46,15 +89,26 @@
             </thead>
             <tbody>
                 {#each dat as person}
-                    {#if person.department_id == defaultId && new Date($store?.selected).getDay() !== person.day1_id && new Date($store?.selected).getDay() !== person.day2_id && person.shift_id == defaultShift}
-                        <tr>
-                            <td>{person.first_name}</td>
-                            <td>{person.last_name}</td>
-                            <td>{depts[defaultId - 1]}</td>
-                            <td>{shifts[person.shift_id]}</td>
-                            <td>{daysOff[person.day1_id]}</td>
-                            <td>{daysOff[person.day2_id]}</td>
-                        </tr>
+                    {#if person.department_id == defaultId && ((new Date($store?.selected).getDay() !== person.day1_id && new Date($store?.selected).getDay() !== person.day2_id) || week) && (person.shift_id == defaultShift || defaultShift == 3)}
+                        {#if person.first_name == "Emil"}
+                            <tr>
+                                <td>{person.first_name}</td>
+                                <td>{person.last_name}</td>
+                                <td>{depts[defaultId - 1]}</td>
+                                <td>{shifts[person.shift_id]}</td>
+                                <td>{daysOff[person.day1_id]}</td>
+                                <td>{daysOff[person.day2_id]}</td>
+                            </tr>
+                        {:else}
+                            <tr class="bg-red-200">
+                                <td>{person.first_name}</td>
+                                <td>{person.last_name}</td>
+                                <td>{depts[defaultId - 1]}</td>
+                                <td>{shifts[person.shift_id]}</td>
+                                <td>{daysOff[person.day1_id]}</td>
+                                <td>{daysOff[person.day2_id]}</td>
+                            </tr>
+                        {/if}
                     {/if}
                 {/each}
             </tbody>
