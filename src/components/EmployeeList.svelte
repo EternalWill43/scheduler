@@ -5,6 +5,7 @@
         const res = await fetch("/api/v1/getemployees")
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 return data;
             })
             .catch((error) => error);
@@ -25,6 +26,7 @@
                         <th>Last Name</th>
                         <th>Department Name</th>
                         <th>Shift</th>
+                        <th>Vacation</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,12 +43,19 @@
                             {:else if employee.department_id == 4}
                                 <td>Head Cashier</td>
                             {/if}
-                            {#if employee.shift_id == 1}
+                            {#if employee.shift_id == 0}
                                 <td>2200</td>
-                            {:else if employee.shift_id == 2}
+                            {:else if employee.shift_id == 1}
                                 <td>0600</td>
-                            {:else if employee.shift_id == 3}
+                            {:else if employee.shift_id == 2}
                                 <td>1400</td>
+                            {/if}
+                            {#if employee.vacation}
+                                <td>
+                                    {#each employee.vacation.daysOff as day}
+                                        <span class="mr-2">{day}</span>
+                                    {/each}
+                                </td>
                             {/if}
                         </tr>
                     {/each}
