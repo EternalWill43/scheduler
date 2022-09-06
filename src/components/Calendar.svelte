@@ -142,7 +142,7 @@
                     {#if person.department_id == defaultId && ((new Date($store?.selected).getDay() !== person.day1_id && new Date($store?.selected).getDay() !== person.day2_id) || week) && (person.shift_id == defaultShift || defaultShift == 3)}
                         {#if person.first_name == "Emil"}
                             <tr>
-                                <td>{person.first_name}</td>
+                                <td class="bg-red-500">{person.first_name}</td>
                                 <td>{person.last_name}</td>
                                 <td>{depts[defaultId - 1]}</td>
                                 <td>{shifts[person.shift_id]}</td>
@@ -150,7 +150,7 @@
                                 <td>{daysOff[person.day2_id]}</td>
                             </tr>
                         {:else}
-                            <tr class="bg-red-200">
+                            <tr>
                                 <td>{person.first_name}</td>
                                 <td>{person.last_name}</td>
                                 <td>{depts[defaultId - 1]}</td>
