@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from "svelte";
     import { Datepicker } from "svelte-calendar";
     import dayjs from "dayjs";
     let store;
@@ -15,7 +16,8 @@
         "Saturday",
     ];
     let shifts = ["2200", "0600", "1400", "All Shifts"];
-    // let day = new Date($store?.selected).getDay();
+    $: day = dayjs($store?.selected).format("MM/DD/YYYY");
+    onMount(() => (day = dayjs($store?.selected).format("MM/DD/YYYY")));
     let defaultId = 3;
     let currentShift = "2200";
     let defaultShift = 0;
@@ -25,6 +27,7 @@
 <div class="not-printable highindex m-4">
     <Datepicker bind:store />
 </div>
+<div>{day}</div>
 <div class="m-4">
     {dayjs($store?.selected).format("MM/DD/YYYY")}, {daysOff[
         new Date($store?.selected).getDay()
@@ -140,7 +143,7 @@
             <tbody>
                 {#each dat as person}
                     {#if person.department_id == defaultId && ((new Date($store?.selected).getDay() !== person.day1_id && new Date($store?.selected).getDay() !== person.day2_id) || week) && (person.shift_id == defaultShift || defaultShift == 3)}
-                        {#if person.first_name == "Emil"}
+                        {#if person?.vacation?.daysOff.includes(day)}
                             <tr>
                                 <td class="bg-red-500">{person.first_name}</td>
                                 <td>{person.last_name}</td>

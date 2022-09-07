@@ -3,6 +3,19 @@
     let lastName: string;
     let option: string;
     let commaList: string;
+
+    const handleSubmit = async () => {
+        console.log(firstName, lastName, commaList);
+        let res = await fetch("/api/v1/setvacation", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                firstName: firstName,
+                lastName: lastName,
+                vacList: commaList,
+            }),
+        }).then((res) => res.json());
+    };
 </script>
 
 <div class="m-1 flex flex-col m-2 align-middle justify-center items-center">
@@ -31,14 +44,15 @@
             class="m-1 w-full input input-bordered max-w-xs"
             type="text"
             bind:value={commaList}
-            placeholder="8/22, 9/24, 10/10"
+            placeholder="8/22/2022, 9/24/2022, 10/10/2022"
         />
     {:else}
         <input
             class="m-1 w-full input input-bordered max-w-xs"
             type="text"
             bind:value={commaList}
-            placeholder="10/1 - 10/15"
+            placeholder="10/1/2022 - 10/15/2022"
         />
     {/if}
+    <button on:click={handleSubmit} class="btn btn-primary">Submit</button>
 </div>
