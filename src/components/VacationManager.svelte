@@ -1,8 +1,8 @@
 <script lang="ts">
-    let firstName: string;
-    let lastName: string;
-    let option: string;
-    let commaList: string;
+    let firstName: string = "OK";
+    let lastName;
+    let option;
+    let commaList;
 </script>
 
 <!-- <div
@@ -35,4 +35,4 @@
         placeholder="8/22, 9/24, 10/10"
     />
 </div> -->
-<div class="uppercase text-xl">Test</div>
+<div class="bg-red-500 lowercase text-xl">{firstName}</div>
