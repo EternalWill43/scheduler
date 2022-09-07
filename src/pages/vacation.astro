@@ -1,5 +1,8 @@
 ---
 import VacationManager from "../components/VacationManager.svelte";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<VacationManager client:load />
+<Layout title="Vacations">
+    <VacationManager client:load />
+</Layout>

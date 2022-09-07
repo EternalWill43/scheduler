@@ -12,18 +12,18 @@
   "devDependencies": {
     "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
-    "astro": "^1.0.6",
-    "svelte": "^3.49.0",
+    "astro": "^1.1.6",
+    "svelte": "^3.50.0",
     "svelte-calendar": "^3.1.6"
   },
   "dependencies": {
-    "@astrojs/vercel": "^1.0.1",
+    "@astrojs/vercel": "^1.0.2",
     "autoprefixer": "^10.4.8",
     "bcryptjs": "^2.4.3",
-    "daisyui": "^2.24.0",
+    "daisyui": "^2.25.0",
     "dayjs": "^1.11.5",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.9.0",
+    "mongodb": "^4.9.1",
     "mysql2": "^2.3.3",
     "path": "^0.12.7",
     "postcss": "^8.4.16",

@@ -1,7 +1,8 @@
 ---
 import EmployeeList from "../components/EmployeeList.svelte";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<div>
+<Layout title="Employee List">
     <EmployeeList client:load />
-</div>
+</Layout>
