@@ -1,14 +1,12 @@
 <script lang="ts">
-    let firstName: string = "OK";
-    let lastName;
-    let option;
-    let commaList;
+    let firstName: string;
+    let lastName: string;
+    let option: string;
+    let commaList: string;
 </script>
 
-<!-- <div
-    class="m-1 flex flex-col m-2 align-middle justify-center items-center w-full"
->
-    <div class="m-1 font-bold text-xl m-2">Edit Employee</div>
+<div class="m-1 flex flex-col m-2 align-middle justify-center items-center">
+    <div class="m-1 font-bold text-xl m-2">Set Employee Vacation</div>
     <input
         class="m-1 w-full input input-bordered max-w-xs"
         type="text"
@@ -28,11 +26,19 @@
         <option>Single Vacation Days</option>
         <option>Vacation Range</option>
     </select>
-    <input
-        class="m-1 w-full input input-bordered max-w-xs"
-        type="text"
-        bind:value={commaList}
-        placeholder="8/22, 9/24, 10/10"
-    />
-</div> -->
-<div class="bg-red-500 lowercase text-xl">{firstName}</div>
+    {#if option == "Single Vacation Days"}
+        <input
+            class="m-1 w-full input input-bordered max-w-xs"
+            type="text"
+            bind:value={commaList}
+            placeholder="8/22, 9/24, 10/10"
+        />
+    {:else}
+        <input
+            class="m-1 w-full input input-bordered max-w-xs"
+            type="text"
+            bind:value={commaList}
+            placeholder="10/1 - 10/15"
+        />
+    {/if}
+</div>

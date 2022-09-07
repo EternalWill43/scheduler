@@ -5,42 +5,34 @@
     onMount(() => (url = window.location.href));
 </script>
 
-<div class="navbar bg-gray-900">
+<div class="navbar bg-grey-900">
     <div class="flex-1">
-        <a href="/" class="btn btn-ghost normal-case text-2xl">Scheduler</a>
+        <a href="/" class="btn btn-ghost normal-case text-xl">Scheduler</a>
     </div>
-    <div class="flex-none gap-2">
-        <div class="dropdown dropdown-end">
-            <label for="" tabindex="0" class="btn btn-ghost btn-circle avatar">
-                <div class="rounded-full">
+    <div class="flex-none">
+        <ul class="menu menu-horizontal p-0">
+            <li tabindex="0">
+                <a href="/">
+                    Employees
                     <svg
+                        class="fill-current"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        fill="none"
+                        width="20"
+                        height="20"
                         viewBox="0 0 24 24"
-                        stroke="currentColor"
                         ><path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h7"
+                            d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
                         /></svg
                     >
-                </div>
-            </label>
-            <ul
-                tabindex="0"
-                class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-            >
-                <li>
-                    <a href="/manage" class="justify-between">
-                        Manage Employees
-                    </a>
-                </li>
-                <li><a href="/departments">Manage Departments</a></li>
-                <li><a href="/shifts">Manage Shifts</a></li>
-                <li><a href="/vacation">Manage Vacations</a></li>
-            </ul>
-        </div>
+                </a>
+                <ul class="p-2 bg-base-100">
+                    <li><a href="/employees">Employee List</a></li>
+                    <li><a href="/manage">Manage Employees</a></li>
+                    <li><a href="/vacation">Vacations</a></li>
+                </ul>
+            </li>
+            <li><a href="/departments">Departments</a></li>
+            <li><a href="/shifts">Shifts</a></li>
+        </ul>
     </div>
 </div>

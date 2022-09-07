@@ -1,6 +1,4 @@
 <script>
-    import AddEmployee from "./AddEmployee.svelte";
-
     async function getEmployees() {
         const res = await fetch("/api/v1/getemployees")
             .then((res) => res.json())
@@ -49,13 +47,6 @@
                                 <td>0600</td>
                             {:else if employee.shift_id == 2}
                                 <td>1400</td>
-                            {/if}
-                            {#if employee.vacation}
-                                <td>
-                                    {#each employee.vacation.daysOff as day}
-                                        <span class="mr-2">{day}</span>
-                                    {/each}
-                                </td>
                             {/if}
                         </tr>
                     {/each}
