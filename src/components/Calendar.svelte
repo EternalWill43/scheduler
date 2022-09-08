@@ -144,7 +144,7 @@
                 {#each dat as person}
                     {#if person.department_id == defaultId && ((new Date($store?.selected).getDay() !== person.day1_id && new Date($store?.selected).getDay() !== person.day2_id) || week) && (person.shift_id == defaultShift || defaultShift == 3)}
                         {#if person?.vacation?.daysOff.includes(day)}
-                            <tr>
+                            <tr class="not-printable">
                                 <td class="bg-red-500">{person.first_name}</td>
                                 <td>{person.last_name}</td>
                                 <td>{depts[defaultId - 1]}</td>

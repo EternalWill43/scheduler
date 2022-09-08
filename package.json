@@ -12,7 +12,7 @@
   "devDependencies": {
     "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
-    "astro": "^1.1.6",
+    "astro": "^1.1.7",
     "svelte": "^3.50.0",
     "svelte-calendar": "^3.1.6"
   },
