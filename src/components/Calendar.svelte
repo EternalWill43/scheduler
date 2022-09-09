@@ -27,7 +27,6 @@
 <div class="not-printable highindex m-4">
     <Datepicker bind:store />
 </div>
-<div>{day}</div>
 <div class="m-4">
     {dayjs($store?.selected).format("MM/DD/YYYY")}, {daysOff[
         new Date($store?.selected).getDay()
