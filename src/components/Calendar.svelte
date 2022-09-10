@@ -3,7 +3,9 @@
     import { Datepicker } from "svelte-calendar";
     import dayjs from "dayjs";
     let store;
-    let empList = fetch("/api/v1/getemployees").then((res) => res.json());
+    let empList = fetch("/api/v1/getemployees")
+        .then((res) => res.json())
+        .then((data) => data);
     let depts = ["Parking Utility", "GTU Agents", "Cashier", "Head Cashiers"];
     let week = false;
     let daysOff = [
@@ -22,6 +24,22 @@
     let currentShift = "2200";
     let defaultShift = 0;
     let currentDepartment = "Cashier";
+
+    async function sortEmployees(value) {
+        empList = await Promise.resolve(empList).then((data) => {
+            console.log(data);
+            if (value != "department_id" && value != "shift_id") {
+                data.sort((a, b) => {
+                    return a[value].localeCompare(b[value]);
+                });
+            } else {
+                data.sort((a, b) => {
+                    return a[value] - b[value];
+                });
+            }
+            return data;
+        });
+    }
 </script>
 
 <div class="not-printable highindex m-4">
@@ -131,10 +149,25 @@
         <table class="table w-full">
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Department</th>
-                    <th>Shift</th>
+                    <th
+                        class="cursor-pointer"
+                        on:click={() => sortEmployees("first_name")}
+                        >First Name</th
+                    >
+                    <th
+                        class="cursor-pointer"
+                        on:click={() => sortEmployees("last_name")}
+                        >Last Name</th
+                    >
+                    <th
+                        class="cursor-pointer"
+                        on:click={() => sortEmployees("department_id")}
+                        >Department</th
+                    >
+                    <th
+                        class="cursor-pointer"
+                        on:click={() => sortEmployees("shift_id")}>Shift</th
+                    >
                     <th>Day Off 1</th>
                     <th>Day Off 2</th>
                 </tr>
