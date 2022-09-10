@@ -1,17 +1,29 @@
+// @ts-ignore
 import { connection } from "../psdb";
+import type * as Pool from "mysql2/typings/mysql/lib/Pool";
 
 export const getEmployees = async () => {
     let [rows] = await connection.promise().query("SELECT * from employees;");
     return rows;
 };
 
+/**
+ * 
+ * @param {string} firstName 
+ * @param {string} lastName 
+ * @param {string} departmentName 
+ * @param {string} shiftName 
+ * @param {string} day1Name 
+ * @param {string} day2Name 
+ * @returns object with affected rows affectedRows
+ */
 export const addEmployee = async (
-    firstName,
-    lastName,
-    departmentName,
-    shiftName,
-    day1Name,
-    day2Name
+    firstName: string,
+    lastName: string,
+    departmentName: string,
+    shiftName: string,
+    day1Name: string,
+    day2Name: string
 ) => {
     let [rows] = await connection
         .promise()
@@ -22,7 +34,13 @@ export const addEmployee = async (
     return rows;
 };
 
-export const removeEmployee = async (firstName, lastName) => {
+/**
+ * 
+ * @param {string} firstName 
+ * @param {string} lastName 
+ * @returns {object} with affected rows affectedRows
+ */
+export const removeEmployee = async (firstName: string, lastName: string) => {
     let [rows] = await connection
         .promise()
         .query(
@@ -32,13 +50,23 @@ export const removeEmployee = async (firstName, lastName) => {
     return rows;
 };
 
+/**
+ * 
+ * @param {string} firstName 
+ * @param {string} lastName 
+ * @param {string} departmentName 
+ * @param {string} shiftName e.g., "0200"
+ * @param {string} day1Name e.g., "Monday"
+ * @param {string} day2Name e.g., "Tuesday"
+ * @returns {object} Response from DB with affected rows: affectedRows
+ */
 export const editEmployee = async (
-    firstName,
-    lastName,
-    departmentName,
-    shiftName,
-    day1Name,
-    day2Name
+    firstName: string,
+    lastName: string,
+    departmentName: string,
+    shiftName: string,
+    day1Name: string,
+    day2Name: string
 ) => {
     let [rows] = await connection
         .promise()
@@ -48,8 +76,14 @@ export const editEmployee = async (
         );
     return rows;
 };
-
-export const setVacation = async (firstName, lastName, vacList) => {
+/**
+ * 
+ * @param {string} firstName 
+ * @param {string} lastName 
+ * @param {string} vacList comma-separated list of vacation dates
+ * @returns {object} Response from DB with affected rows: affectedRows
+ */
+export const setVacation = async (firstName: string, lastName: string, vacList: string) => {
     let obj = {
         daysOff: vacList,
     };
@@ -62,7 +96,7 @@ export const setVacation = async (firstName, lastName, vacList) => {
     return rows;
 };
 
-export const getEmployeeVacation = async (firstName, lastName) => {
+export const getEmployeeVacation = async (firstName: string, lastName: string) => {
     let [rows] = await connection
         .promise()
         .query(
