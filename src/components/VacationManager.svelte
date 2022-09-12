@@ -112,8 +112,8 @@
                 placeholder="8/22/2022, 9/24/2022, 10/10/2022"
             />
         {:else}
-            <input
-                class="m-1 w-full input input-bordered max-w-xs"
+            <textarea
+                class="m-1 w-full textarea input-bordered max-w-xs"
                 type="text"
                 bind:value={vacListGet}
                 placeholder="10/1/2022 - 10/15/2022"

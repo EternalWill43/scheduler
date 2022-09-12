@@ -1,6 +1,5 @@
 // @ts-ignore
 import { connection } from "../psdb";
-import type * as Pool from "mysql2/typings/mysql/lib/Pool";
 
 export const getEmployees = async () => {
     let [rows] = await connection.promise().query("SELECT * from employees;");
