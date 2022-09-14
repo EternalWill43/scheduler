@@ -3,20 +3,20 @@ import Layout from "../layouts/Layout.astro";
 import Calendar from "../components/Calendar.svelte";
 const cookie = Astro.request.headers.get("cookie");
 if (!cookie) {
-	Astro.response.status = 401;
-	return Astro.redirect("/login");
+    Astro.response.status = 401;
+    return Astro.redirect("/login");
 }
 ---
 
 <Layout title="Home Page">
-	<div class="container mx-auto font-bold text-center">
-		<Calendar client:load />
-	</div>
+    <div class="container mx-auto font-bold text-center bg-gray-900">
+        <Calendar client:load />
+    </div>
 </Layout>
 
 <style>
-	html,
-	body {
-		margin: 0;
-	}
+    html,
+    body {
+        margin: 0;
+    }
 </style>

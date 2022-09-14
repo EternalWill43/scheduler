@@ -141,67 +141,145 @@
     {/if}
 </div>
 
-{#await empList}
-    <p>Waiting for data...</p>
-    <progress class="progress w-56" />
-{:then dat}
-    <div class="printable m-4 overflow-x-auto">
-        <table class="table w-full">
-            <thead>
-                <tr>
-                    <th
-                        class="cursor-pointer"
-                        on:click={() => sortEmployees("first_name")}
-                        >First Name</th
-                    >
-                    <th
-                        class="cursor-pointer"
-                        on:click={() => sortEmployees("last_name")}
-                        >Last Name</th
-                    >
-                    <th
-                        class="cursor-pointer"
-                        on:click={() => sortEmployees("department_id")}
-                        >Department</th
-                    >
-                    <th
-                        class="cursor-pointer"
-                        on:click={() => sortEmployees("shift_id")}>Shift</th
-                    >
-                    <th>Day Off 1</th>
-                    <th>Day Off 2</th>
-                </tr>
-            </thead>
-            <tbody>
-                {#each dat as person}
-                    {#if person.department_id == defaultId && ((new Date($store?.selected).getDay() !== person.day1_id && new Date($store?.selected).getDay() !== person.day2_id) || week) && (person.shift_id == defaultShift || defaultShift == 3)}
-                        {#if person?.vacation?.daysOff.includes(day)}
-                            <tr class="not-printable">
-                                <td class="bg-red-500">{person.first_name}</td>
-                                <td>{person.last_name}</td>
-                                <td>{depts[defaultId - 1]}</td>
-                                <td>{shifts[person.shift_id]}</td>
-                                <td>{daysOff[person.day1_id]}</td>
-                                <td>{daysOff[person.day2_id]}</td>
-                            </tr>
-                        {:else}
-                            <tr>
-                                <td>{person.first_name}</td>
-                                <td>{person.last_name}</td>
-                                <td>{depts[defaultId - 1]}</td>
-                                <td>{shifts[person.shift_id]}</td>
-                                <td>{daysOff[person.day1_id]}</td>
-                                <td>{daysOff[person.day2_id]}</td>
-                            </tr>
+{#if week}
+    {#await empList}
+        <div>...Loading</div>
+    {:then dat}
+        <div class="text-xl text-bold border-b-2 border-zinc-600">
+            {shifts[0]}
+        </div>
+        <div class="flex justify-center">
+            {#each daysOff as dayOfWeek, i}
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <thead>
+                            <th>{dayOfWeek}</th>
+                        </thead>
+                        <tbody>
+                            {#each dat as person}
+                                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 0 && person.department_id == defaultId}
+                                    <tr>
+                                        <td>{person.last_name}</td>
+                                    </tr>
+                                {/if}
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
+            {/each}
+        </div>
+        <div class="text-xl text-bold border-b-2 border-zinc-600">
+            {shifts[1]}
+        </div>
+        <div class="flex justify-center">
+            {#each daysOff as dayOfWeek, i}
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <thead>
+                            <th>{dayOfWeek}</th>
+                        </thead>
+                        <tbody>
+                            {#each dat as person}
+                                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 1 && person.department_id == defaultId}
+                                    <tr>
+                                        <td>{person.last_name}</td>
+                                    </tr>
+                                {/if}
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
+            {/each}
+        </div>
+        <div class="text-xl text-bold border-b-2 border-zinc-600">
+            {shifts[2]}
+        </div>
+        <div class="flex justify-center">
+            {#each daysOff as dayOfWeek, i}
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <thead>
+                            <th>{dayOfWeek}</th>
+                        </thead>
+                        <tbody>
+                            {#each dat as person}
+                                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 2 && person.department_id == defaultId}
+                                    <tr>
+                                        <td>{person.last_name}</td>
+                                    </tr>
+                                {/if}
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
+            {/each}
+        </div>
+    {/await}
+{:else}
+    {#await empList}
+        <p>Waiting for data...</p>
+        <progress class="progress w-56" />
+    {:then dat}
+        <div class="printable m-4 ">
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th
+                            class="cursor-pointer"
+                            on:click={() => sortEmployees("first_name")}
+                            >First Name</th
+                        >
+                        <th
+                            class="cursor-pointer"
+                            on:click={() => sortEmployees("last_name")}
+                            >Last Name</th
+                        >
+                        <th
+                            class="cursor-pointer"
+                            on:click={() => sortEmployees("department_id")}
+                            >Department</th
+                        >
+                        <th
+                            class="cursor-pointer"
+                            on:click={() => sortEmployees("shift_id")}>Shift</th
+                        >
+                        <th>Day Off 1</th>
+                        <th>Day Off 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#each dat as person}
+                        {#if person.department_id == defaultId && ((new Date($store?.selected).getDay() !== person.day1_id && new Date($store?.selected).getDay() !== person.day2_id) || week) && (person.shift_id == defaultShift || defaultShift == 3)}
+                            {#if person?.vacation?.daysOff.includes(day)}
+                                <tr class="not-printable">
+                                    <td class="bg-red-500"
+                                        >{person.first_name}</td
+                                    >
+                                    <td>{person.last_name}</td>
+                                    <td>{depts[defaultId - 1]}</td>
+                                    <td>{shifts[person.shift_id]}</td>
+                                    <td>{daysOff[person.day1_id]}</td>
+                                    <td>{daysOff[person.day2_id]}</td>
+                                </tr>
+                            {:else}
+                                <tr>
+                                    <td>{person.first_name}</td>
+                                    <td>{person.last_name}</td>
+                                    <td>{depts[defaultId - 1]}</td>
+                                    <td>{shifts[person.shift_id]}</td>
+                                    <td>{daysOff[person.day1_id]}</td>
+                                    <td>{daysOff[person.day2_id]}</td>
+                                </tr>
+                            {/if}
                         {/if}
-                    {/if}
-                {/each}
-            </tbody>
-        </table>
-    </div>
-{:catch err}
-    <p>{err}</p>
-{/await}
+                    {/each}
+                </tbody>
+            </table>
+        </div>
+    {:catch err}
+        <p>{err}</p>
+    {/await}
+{/if}
 
 <style>
     .table th:first-child {
