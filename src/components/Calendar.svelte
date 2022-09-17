@@ -132,9 +132,11 @@
 <div class="m-4 text-xl">
     {#if week}
         <u
-            >{depts[defaultId - 1]} List For The Week For {shifts[
-                defaultShift
-            ]}</u
+            >{depts[defaultId - 1]} List For The Week For Week Ending: {dayjs(
+                $store?.selected
+            )
+                .add(6 - new Date($store?.selected).getDay(), "d")
+                .format("MM/DD/YYYY")}</u
         >
     {:else}
         <u>{depts[defaultId - 1]} List For {shifts[defaultShift]}</u>
@@ -150,16 +152,37 @@
         </div>
         <div class="flex justify-center">
             {#each daysOff as dayOfWeek, i}
-                <div class="overflow-x-auto">
-                    <table class="table table-zebra">
+                <div class="overflow-x-visible">
+                    <table class="table table-zebra printable">
                         <thead>
-                            <th>{dayOfWeek}</th>
+                            <th
+                                ><div>
+                                    <div>{dayOfWeek}</div>
+                                    <div>
+                                        {dayjs($store?.selected)
+                                            .add(
+                                                i -
+                                                    new Date(
+                                                        $store?.selected
+                                                    ).getDay(),
+                                                "day"
+                                            )
+                                            .format("MM/DD/YYYY")}
+                                    </div>
+                                </div></th
+                            >
                         </thead>
                         <tbody>
                             {#each dat as person}
                                 {#if person.day1_id != i && person.day2_id != i && person.shift_id == 0 && person.department_id == defaultId}
                                     <tr>
-                                        <td>{person.last_name}</td>
+                                        <td
+                                            >{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
+                                                    .add(i - new Date($store?.selected).getDay(), "day")
+                                                    .format("MM/DD/YYYY"))}<span
+                                                    >Vac:
+                                                </span>{/if}{person.last_name}</td
+                                        >
                                     </tr>
                                 {/if}
                             {/each}
@@ -173,16 +196,37 @@
         </div>
         <div class="flex justify-center">
             {#each daysOff as dayOfWeek, i}
-                <div class="overflow-x-auto">
-                    <table class="table table-zebra">
+                <div class="overflow-x-visible">
+                    <table class="table table-zebra printable">
                         <thead>
-                            <th>{dayOfWeek}</th>
+                            <th
+                                ><div>
+                                    <div>{dayOfWeek}</div>
+                                    <div>
+                                        {dayjs($store?.selected)
+                                            .add(
+                                                i -
+                                                    new Date(
+                                                        $store?.selected
+                                                    ).getDay(),
+                                                "day"
+                                            )
+                                            .format("MM/DD/YYYY")}
+                                    </div>
+                                </div></th
+                            >
                         </thead>
                         <tbody>
                             {#each dat as person}
                                 {#if person.day1_id != i && person.day2_id != i && person.shift_id == 1 && person.department_id == defaultId}
                                     <tr>
-                                        <td>{person.last_name}</td>
+                                        <td
+                                            >{person.last_name}{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
+                                                    .add(i - new Date($store?.selected).getDay(), "day")
+                                                    .format("MM/DD/YYYY"))}<span
+                                                    >Vac</span
+                                                >{/if}</td
+                                        >
                                     </tr>
                                 {/if}
                             {/each}
@@ -196,16 +240,37 @@
         </div>
         <div class="flex justify-center">
             {#each daysOff as dayOfWeek, i}
-                <div class="overflow-x-auto">
-                    <table class="table table-zebra">
+                <div class="overflow-x-visible">
+                    <table class="table table-zebra printable">
                         <thead>
-                            <th>{dayOfWeek}</th>
+                            <th
+                                ><div>
+                                    <div>{dayOfWeek}</div>
+                                    <div>
+                                        {dayjs($store?.selected)
+                                            .add(
+                                                i -
+                                                    new Date(
+                                                        $store?.selected
+                                                    ).getDay(),
+                                                "day"
+                                            )
+                                            .format("MM/DD/YYYY")}
+                                    </div>
+                                </div></th
+                            >
                         </thead>
                         <tbody>
                             {#each dat as person}
                                 {#if person.day1_id != i && person.day2_id != i && person.shift_id == 2 && person.department_id == defaultId}
                                     <tr>
-                                        <td>{person.last_name}</td>
+                                        <td
+                                            >{person.last_name}{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
+                                                    .add(i - new Date($store?.selected).getDay(), "day")
+                                                    .format("MM/DD/YYYY"))}<span
+                                                    >Vac</span
+                                                >{/if}</td
+                                        >
                                     </tr>
                                 {/if}
                             {/each}
@@ -294,7 +359,9 @@
             display: none;
         }
         .printable {
-            display: block;
+            height: 33%;
+            overflow: hidden;
+            font-size: 9.5pt;
         }
     }
 </style>
