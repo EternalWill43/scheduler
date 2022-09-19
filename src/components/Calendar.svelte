@@ -17,7 +17,7 @@
         "Friday",
         "Saturday",
     ];
-    let shifts = ["2200", "0600", "1400", "All Shifts"];
+    let shifts = ["2200", "0600", "1400", "All Shifts", "1000", "1800"];
     $: day = dayjs($store?.selected).format("MM/DD/YYYY");
     onMount(() => (day = dayjs($store?.selected).format("MM/DD/YYYY")));
     let defaultId = 3;
