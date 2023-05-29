@@ -2,8 +2,12 @@
   import { onMount } from "svelte";
   import { Datepicker } from "svelte-calendar";
   import dayjs from "dayjs";
+
   let store;
   let empList = fetch("/api/v1/getemployees")
+    .then((res) => res.json())
+    .then((data) => data);
+  let otList = fetch("/api/v1/getot")
     .then((res) => res.json())
     .then((data) => data);
   let depts = ["Parking Utility", "GTU Agents", "Cashier", "Head Cashiers"];
@@ -70,7 +74,7 @@
 <div class="not-printable highindex m-4">
   <Datepicker bind:store />
 </div>
-<div class="m-4">
+<div class="m-4 not-printable">
   {dayjs($store?.selected).format("MM/DD/YYYY")}, {daysOff[
     new Date($store?.selected).getDay()
   ]}
@@ -246,6 +250,59 @@
                   </tr>
                 {/if}
               {/each}
+              <tr
+                ><td class="text-green-500"
+                  ><button class="not-printable" on:click={changeInner}
+                    >Add OT</button
+                  ></td
+                ></tr
+              >
+            </tbody>
+          </table>
+        </div>
+      {/each}
+    </div>
+    <div class="text-xl text-bold border-b-2 border-zinc-600">
+      {shifts[4]}
+    </div>
+    <div class="flex justify-center">
+      {#each daysOff as dayOfWeek, i}
+        <div class="overflow-x-visible">
+          <table class="table table-zebra printable">
+            <thead>
+              <th
+                ><div>
+                  <div>{dayOfWeek}</div>
+                  <div>
+                    {dayjs($store?.selected)
+                      .add(i - new Date($store?.selected).getDay(), "day")
+                      .format("MM/DD/YYYY")}
+                  </div>
+                </div></th
+              >
+            </thead>
+            <tbody>
+              {#each dat as person}
+                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 4 && person.department_id == defaultId}
+                  <tr>
+                    <td
+                      >{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
+                          .add(i - new Date($store?.selected).getDay(), "day")
+                          .format("MM/DD/YYYY"))}<span class="text-red-500"
+                          >Vac:</span
+                        >
+                      {/if}{person.last_name}</td
+                    >
+                  </tr>
+                {/if}
+              {/each}
+              <tr
+                ><td class="text-green-500"
+                  ><button class="not-printable" on:click={changeInner}
+                    >Add OT</button
+                  ></td
+                ></tr
+              >
             </tbody>
           </table>
         </div>
@@ -282,6 +339,59 @@
                   </tr>
                 {/if}
               {/each}
+              <tr
+                ><td class="text-green-500"
+                  ><button class="not-printable" on:click={changeInner}
+                    >Add OT</button
+                  ></td
+                ></tr
+              >
+            </tbody>
+          </table>
+        </div>
+      {/each}
+    </div>
+    <div class="text-xl text-bold border-b-2 border-zinc-600">
+      {shifts[5]}
+    </div>
+    <div class="flex justify-center">
+      {#each daysOff as dayOfWeek, i}
+        <div class="overflow-x-visible">
+          <table class="table table-zebra printable">
+            <thead>
+              <th
+                ><div>
+                  <div>{dayOfWeek}</div>
+                  <div>
+                    {dayjs($store?.selected)
+                      .add(i - new Date($store?.selected).getDay(), "day")
+                      .format("MM/DD/YYYY")}
+                  </div>
+                </div></th
+              >
+            </thead>
+            <tbody>
+              {#each dat as person}
+                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 5 && person.department_id == defaultId}
+                  <tr>
+                    <td
+                      >{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
+                          .add(i - new Date($store?.selected).getDay(), "day")
+                          .format("MM/DD/YYYY"))}<span class="text-red-500"
+                          >Vac:</span
+                        >
+                      {/if}{person.last_name}</td
+                    >
+                  </tr>
+                {/if}
+              {/each}
+              <tr
+                ><td class="text-green-500"
+                  ><button class="not-printable" on:click={changeInner}
+                    >Add OT</button
+                  ></td
+                ></tr
+              >
             </tbody>
           </table>
         </div>

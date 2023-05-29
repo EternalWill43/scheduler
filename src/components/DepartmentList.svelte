@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     let depList = fetch("/api/v1/getdepartments").then((res) => res.json());
 </script>
 

@@ -104,3 +104,12 @@ export const getEmployeeVacation = async (firstName: string, lastName: string) =
         );
     return rows;
 }
+
+export const getOT = async () => {
+    let [rows] = await connection
+        .promise()
+        .query(
+            "SELECT * from OT;",
+        );
+    return rows;
+}

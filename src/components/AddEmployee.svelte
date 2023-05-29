@@ -90,7 +90,9 @@
     >
         <option>2200</option>
         <option>0600</option>
+        <option>1000</option>
         <option>1400</option>
+        <option>1800</option>
     </select>
     <select
         bind:value={day1}

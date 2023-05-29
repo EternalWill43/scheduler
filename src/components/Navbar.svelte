@@ -1,10 +1,10 @@
-<div class="navbar bg-gray-900">
+<div class="not-printable navbar bg-gray-900">
     <div class="flex-1">
         <a href="/" class="btn btn-ghost normal-case text-xl">Scheduler</a>
     </div>
     <div class="dropdown dropdown-end">
         <!-- svelte-ignore a11y-label-has-associated-control -->
-        <label tabindex="0" class="btn bg-transparent border-none">
+        <label tabindex="-1" class="btn bg-transparent border-none">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -27,7 +27,7 @@
         </label>
 
         <ul
-            tabindex="0"
+            tabindex="-1"
             class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
         >
             <li><a href="/vacation">Manage Vacations</a></li>
@@ -38,3 +38,11 @@
         </ul>
     </div>
 </div>
+
+<style>
+  @media print {
+    .not-printable {
+      display: none;
+    }
+  }
+</style>
