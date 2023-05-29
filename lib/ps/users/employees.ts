@@ -113,3 +113,18 @@ export const getOT = async () => {
         );
     return rows;
 }
+
+export const setOT = async (
+  name: string,
+  shift: string,
+  department: string,
+  date: string
+) => {
+  let [rows] = await connection
+    .promise()
+    .query(
+      "INSERT INTO OT (name, shift, department, date) VALUES (?, ?, ?, ?);",
+      [name, shift, department, date]
+    );
+  return rows;
+};
