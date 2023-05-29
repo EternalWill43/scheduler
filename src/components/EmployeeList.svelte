@@ -45,8 +45,12 @@
                 <td>2200</td>
               {:else if employee.shift_id == 1}
                 <td>0600</td>
+              {:else if employee.shift_id == 4}
+                <td>1000</td>
               {:else if employee.shift_id == 2}
                 <td>1400</td>
+              {:else if employee.shift_id == 5}
+                <td>1800</td>
               {/if}
             </tr>
           {/each}
