@@ -7,6 +7,9 @@
   let empList = fetch("/api/v1/getemployees")
     .then((res) => res.json())
     .then((data) => data);
+  let otList = fetch("/api/v1/getot")
+    .then((res) => res.json())
+    .then((data) => data);
   let depts = ["Parking Utility", "GTU Agents", "Cashier", "Head Cashiers"];
   let week = true;
   let daysOff = [
@@ -40,6 +43,18 @@
       if (e.key === "Enter") {
         if (inputElement.value !== "Add OT" && inputElement.value !== "") {
           ele.classList.remove("not-printable");
+          await fetch("/api/v1/setot", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: inputElement.value,
+              shift: "2200",
+              department: "Cashier",
+              date: "05/30/2023",
+            }),
+          }).then((res) => console.log(res));
         } else {
           ele.classList.add("not-printable");
           console.log("Hmm");
@@ -168,7 +183,10 @@
 
 {#if week}
   {#await empList}
-    <div>...Loading</div>
+    <div>...Loading Employees</div>
+    {#await otList}
+      <div>...Loading OT List</div>
+    {/await}
   {:then dat}
     <div class="text-xl text-bold border-b-2 border-zinc-600">
       {shifts[0]}
