@@ -7,9 +7,6 @@
   let empList = fetch("/api/v1/getemployees")
     .then((res) => res.json())
     .then((data) => data);
-  let otList = fetch("/api/v1/getot")
-    .then((res) => res.json())
-    .then((data) => data);
   let depts = ["Parking Utility", "GTU Agents", "Cashier", "Head Cashiers"];
   let week = true;
   let daysOff = [

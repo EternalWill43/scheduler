@@ -1,22 +1,18 @@
-<script lang="ts">
+<script>
     let promise = fetch("/api/v1/getshifts")
         .then((res) => res.json())
         .then((data) => {
             return data;
         });
-    let showAdd: boolean = true;
+    let showAdd = true;
 
-    interface Status {
-        success: boolean;
-        message: string;
-    }
 
     /**
      * @param {number} id - The id of the shift to delete
      * @description Deletes a shift from the database
      * @returns {Status} Returns object {success: boolean, message: string}
      */
-    function deleteShift(id: number): Status {
+    function deleteShift(id ) {
         console.log("Attempting to delete shift with id: " + id);
         return { success: true, message: "Successfully deleted shift" };
     }
