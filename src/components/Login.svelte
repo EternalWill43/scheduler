@@ -2,9 +2,10 @@
   let uname = "";
   let pword = "";
   let invalidInputs = false;
+  let unauthorized = false;
   let loggingIn = false;
-  async function handleRegister() {
-    await fetch("/api/v1/register", {
+  function handleRegister() {
+    fetch("/api/v1/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,7 +16,7 @@
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then(() => (location.href = "/"));
   }
 
   function handleLogin() {
@@ -39,7 +40,7 @@
         if (data.success) {
           location.href = "/";
         } else {
-          alert(data.message);
+          unauthorized = true;
         }
         loggingIn = false;
       })
@@ -69,6 +70,25 @@
               /></svg
             >
             <span>Error! Not valid input.</span>
+          </div>
+        </div>
+      {/if}
+      {#if unauthorized}
+        <div class="alert alert-error shadow-lg">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="stroke-current flex-shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              /></svg
+            >
+            <span>Error! You are not authorized to use this application.</span>
           </div>
         </div>
       {/if}

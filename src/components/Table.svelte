@@ -14,7 +14,7 @@
 
 <div class="overflow-x-visible">
   <table class="table table-zebra printable">
-    <thead>
+    <thead style="z-index: -1">
       <th
         ><div>
           <div>{dayOfWeek}</div>

@@ -2,8 +2,6 @@
   import { onMount } from "svelte";
   import { Datepicker } from "svelte-calendar";
   import dayjs from "dayjs";
-  import ShiftButton from "./buttons/ShiftButton.svelte";
-  import DepartmentButton from "./buttons/DepartmentButton.svelte";
   import Table from "./Table.svelte";
 
   let store;
@@ -160,7 +158,7 @@
     <div class="text-xl text-bold border-b-2 border-zinc-600">
       {shifts[0]}
     </div>
-    <div class="flex justify-center">
+    <div style="z-index: -10;" class="flex justify-center">
       {#each daysOff as dayOfWeek, i}
         <Table
           {i}
@@ -194,7 +192,7 @@
     <div class="text-xl text-bold border-b-2 border-zinc-600">
       {shifts[4]}
     </div>
-    <div class="flex justify-center">
+    <div style="z-index: -10;" class="flex justify-center">
       {#each daysOff as dayOfWeek, i}
         <Table
           {i}
@@ -305,6 +303,9 @@
 {/if}
 
 <style>
+  .col-auto :global(.datepicker .sc-popover .contents-wrapper) {
+    z-index: 3;
+  }
   .table th:first-child {
     position: relative !important;
     z-index: 0 !important;
