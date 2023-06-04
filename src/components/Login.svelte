@@ -3,8 +3,19 @@
   let pword = "";
   let invalidInputs = false;
   let loggingIn = false;
-  function handleRegister() {
-    location.href = "/register";
+  async function handleRegister() {
+    await fetch("/api/v1/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uname: uname,
+        pword: pword,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   function handleLogin() {
