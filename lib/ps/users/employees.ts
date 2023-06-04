@@ -131,3 +131,10 @@ export const setOT = async (
     );
   return rows;
 };
+
+export const removeOT = async (id: string) => {
+  let [rows] = await connection
+    .promise()
+    .query("DELETE FROM OT WHERE id = ?", [id]);
+  return rows;
+};
