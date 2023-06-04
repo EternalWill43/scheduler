@@ -2,14 +2,20 @@
   import { onMount } from "svelte";
   import { Datepicker } from "svelte-calendar";
   import dayjs from "dayjs";
+  import ShiftButton from "./buttons/ShiftButton.svelte";
+  import DepartmentButton from "./buttons/DepartmentButton.svelte";
+  import Table from "./Table.svelte";
 
   let store;
   let empList = fetch("/api/v1/getemployees")
     .then((res) => res.json())
     .then((data) => data);
+
   let otList = fetch("/api/v1/getot")
     .then((res) => res.json())
     .then((data) => data);
+
+  let empAndOt = Promise.all([empList, otList]);
   let depts = ["Parking Utility", "GTU Agents", "Cashier", "Head Cashiers"];
   let week = true;
   let daysOff = [
@@ -28,43 +34,9 @@
   let currentShift = "2200";
   let defaultShift = 0;
   let currentDepartment = "Cashier";
-
-  function changeInner(e) {
-    /**
-     * @type {HTMLElement}
-     */
-    let ele = e.target;
-    let inputElement = document.createElement("input");
-    inputElement.type = "text";
-    inputElement.addEventListener("change", () => {
-      ele.innerText = inputElement.value;
-    });
-    inputElement.addEventListener("keydown", async (e) => {
-      if (e.key === "Enter") {
-        if (inputElement.value !== "Add OT" && inputElement.value !== "") {
-          ele.classList.remove("not-printable");
-          await fetch("/api/v1/setot", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: inputElement.value,
-              shift: "2200",
-              department: "Cashier",
-              date: "05/30/2023",
-            }),
-          }).then((res) => console.log(res));
-        } else {
-          ele.classList.add("not-printable");
-          console.log("Hmm");
-        }
-        inputElement.remove();
-      }
-    });
-    ele.appendChild(inputElement);
-    inputElement.focus();
-  }
+  $: currentShift;
+  $: currentDepartment;
+  $: defaultId;
 
   async function sortEmployees(value) {
     empList = await Promise.resolve(empList).then((data) => {
@@ -182,56 +154,24 @@
 </div>
 
 {#if week}
-  {#await empList}
+  {#await empAndOt}
     <div>...Loading Employees</div>
-    {#await otList}
-      <div>...Loading OT List</div>
-    {/await}
-  {:then dat}
+  {:then [dat, otList]}
     <div class="text-xl text-bold border-b-2 border-zinc-600">
       {shifts[0]}
     </div>
     <div class="flex justify-center">
       {#each daysOff as dayOfWeek, i}
-        <div class="overflow-x-visible">
-          <table class="table table-zebra printable">
-            <thead>
-              <th
-                ><div>
-                  <div>{dayOfWeek}</div>
-                  <div>
-                    {dayjs($store?.selected)
-                      .add(i - new Date($store?.selected).getDay(), "day")
-                      .format("MM/DD/YYYY")}
-                  </div>
-                </div></th
-              >
-            </thead>
-            <tbody>
-              {#each dat as person}
-                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 0 && person.department_id == defaultId}
-                  <tr>
-                    <td
-                      >{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
-                          .add(i - new Date($store?.selected).getDay(), "day")
-                          .format("MM/DD/YYYY"))}<span class="text-red-500"
-                          >Vac:</span
-                        >
-                      {/if}{person.last_name}</td
-                    >
-                  </tr>
-                {/if}
-              {/each}
-              <tr
-                ><td class="text-green-500"
-                  ><button class="not-printable" on:click={changeInner}
-                    >Add OT</button
-                  ></td
-                ></tr
-              >
-            </tbody>
-          </table>
-        </div>
+        <Table
+          {i}
+          {dayOfWeek}
+          {dat}
+          {store}
+          {currentDepartment}
+          {otList}
+          {defaultId}
+          shift="2200"
+        />
       {/each}
     </div>
     <div class="text-xl text-bold border-b-2 border-zinc-600">
@@ -239,42 +179,16 @@
     </div>
     <div class="flex justify-center">
       {#each daysOff as dayOfWeek, i}
-        <div class="overflow-x-visible">
-          <table class="table table-zebra printable">
-            <thead>
-              <th
-                ><div>
-                  <div>{dayOfWeek}</div>
-                  <div>
-                    {dayjs($store?.selected)
-                      .add(i - new Date($store?.selected).getDay(), "day")
-                      .format("MM/DD/YYYY")}
-                  </div>
-                </div></th
-              >
-            </thead>
-            <tbody>
-              {#each dat as person}
-                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 1 && person.department_id == defaultId}
-                  <tr>
-                    <td
-                      >{person.last_name}{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
-                          .add(i - new Date($store?.selected).getDay(), "day")
-                          .format("MM/DD/YYYY"))}<span>Vac</span>{/if}</td
-                    >
-                  </tr>
-                {/if}
-              {/each}
-              <tr
-                ><td class="text-green-500"
-                  ><button class="not-printable" on:click={changeInner}
-                    >Add OT</button
-                  ></td
-                ></tr
-              >
-            </tbody>
-          </table>
-        </div>
+        <Table
+          {i}
+          {dayOfWeek}
+          {dat}
+          {store}
+          {currentDepartment}
+          {otList}
+          {defaultId}
+          shift="0600"
+        />
       {/each}
     </div>
     <div class="text-xl text-bold border-b-2 border-zinc-600">
@@ -282,45 +196,16 @@
     </div>
     <div class="flex justify-center">
       {#each daysOff as dayOfWeek, i}
-        <div class="overflow-x-visible">
-          <table class="table table-zebra printable">
-            <thead>
-              <th
-                ><div>
-                  <div>{dayOfWeek}</div>
-                  <div>
-                    {dayjs($store?.selected)
-                      .add(i - new Date($store?.selected).getDay(), "day")
-                      .format("MM/DD/YYYY")}
-                  </div>
-                </div></th
-              >
-            </thead>
-            <tbody>
-              {#each dat as person}
-                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 4 && person.department_id == defaultId}
-                  <tr>
-                    <td
-                      >{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
-                          .add(i - new Date($store?.selected).getDay(), "day")
-                          .format("MM/DD/YYYY"))}<span class="text-red-500"
-                          >Vac:</span
-                        >
-                      {/if}{person.last_name}</td
-                    >
-                  </tr>
-                {/if}
-              {/each}
-              <tr
-                ><td class="text-green-500"
-                  ><button class="not-printable" on:click={changeInner}
-                    >Add OT</button
-                  ></td
-                ></tr
-              >
-            </tbody>
-          </table>
-        </div>
+        <Table
+          {i}
+          {dayOfWeek}
+          {dat}
+          {store}
+          {currentDepartment}
+          {otList}
+          {defaultId}
+          shift="1000"
+        />
       {/each}
     </div>
     <div class="text-xl text-bold border-b-2 border-zinc-600">
@@ -328,42 +213,16 @@
     </div>
     <div class="flex justify-center">
       {#each daysOff as dayOfWeek, i}
-        <div class="overflow-x-visible">
-          <table class="table table-zebra printable">
-            <thead>
-              <th
-                ><div>
-                  <div>{dayOfWeek}</div>
-                  <div>
-                    {dayjs($store?.selected)
-                      .add(i - new Date($store?.selected).getDay(), "day")
-                      .format("MM/DD/YYYY")}
-                  </div>
-                </div></th
-              >
-            </thead>
-            <tbody>
-              {#each dat as person}
-                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 2 && person.department_id == defaultId}
-                  <tr>
-                    <td
-                      >{person.last_name}{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
-                          .add(i - new Date($store?.selected).getDay(), "day")
-                          .format("MM/DD/YYYY"))}<span>Vac</span>{/if}</td
-                    >
-                  </tr>
-                {/if}
-              {/each}
-              <tr
-                ><td class="text-green-500"
-                  ><button class="not-printable" on:click={changeInner}
-                    >Add OT</button
-                  ></td
-                ></tr
-              >
-            </tbody>
-          </table>
-        </div>
+        <Table
+          {i}
+          {dayOfWeek}
+          {dat}
+          {store}
+          {currentDepartment}
+          {otList}
+          {defaultId}
+          shift="1400"
+        />
       {/each}
     </div>
     <div class="text-xl text-bold border-b-2 border-zinc-600">
@@ -371,45 +230,16 @@
     </div>
     <div class="flex justify-center">
       {#each daysOff as dayOfWeek, i}
-        <div class="overflow-x-visible">
-          <table class="table table-zebra printable">
-            <thead>
-              <th
-                ><div>
-                  <div>{dayOfWeek}</div>
-                  <div>
-                    {dayjs($store?.selected)
-                      .add(i - new Date($store?.selected).getDay(), "day")
-                      .format("MM/DD/YYYY")}
-                  </div>
-                </div></th
-              >
-            </thead>
-            <tbody>
-              {#each dat as person}
-                {#if person.day1_id != i && person.day2_id != i && person.shift_id == 5 && person.department_id == defaultId}
-                  <tr>
-                    <td
-                      >{#if person?.vacation?.daysOff.includes(dayjs($store?.selected)
-                          .add(i - new Date($store?.selected).getDay(), "day")
-                          .format("MM/DD/YYYY"))}<span class="text-red-500"
-                          >Vac:</span
-                        >
-                      {/if}{person.last_name}</td
-                    >
-                  </tr>
-                {/if}
-              {/each}
-              <tr
-                ><td class="text-green-500"
-                  ><button class="not-printable" on:click={changeInner}
-                    >Add OT</button
-                  ></td
-                ></tr
-              >
-            </tbody>
-          </table>
-        </div>
+        <Table
+          {i}
+          {dayOfWeek}
+          {dat}
+          {store}
+          {currentDepartment}
+          {otList}
+          {defaultId}
+          shift="1800"
+        />
       {/each}
     </div>
   {/await}
