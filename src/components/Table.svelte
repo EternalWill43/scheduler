@@ -7,6 +7,7 @@
   export let defaultId;
   export let otList;
   export let shift;
+  console.log(shift);
   import * as dayjs from "dayjs";
   import PersonRow from "./PersonRow.svelte";
   import { changeInner, removeOT } from "./calendarutils";
@@ -28,7 +29,16 @@
     </thead>
     <tbody>
       {#each dat as person}
-        <PersonRow {person} {i} {store} {defaultId} />
+        {#if person.shift_id == shift}
+          <PersonRow
+            day={dayjs($store?.selected)
+              .add(i - new Date($store?.selected).getDay(), "day")
+              .format("MM/DD/YYYY")}
+            {person}
+            {i}
+            {defaultId}
+          />
+        {/if}
       {/each}
       {#each otList as otInstance}
         {#if otInstance.date.includes(dayjs($store?.selected)
@@ -45,8 +55,8 @@
                     >✖
                   </button>
                 </div>
-              </div></td
-            ></tr
+              </div>
+            </td></tr
           >
         {/if}
       {/each}
