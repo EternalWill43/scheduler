@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from "svelte";
   import { Datepicker } from "svelte-calendar";
   import dayjs from "dayjs";
   import Table from "./Table.svelte";

@@ -7,8 +7,8 @@
   export let defaultId;
   export let otList;
   export let shift;
+  import dayjs from "dayjs";
   console.log(shift);
-  import * as dayjs from "dayjs";
   import PersonRow from "./PersonRow.svelte";
   import { changeInner, removeOT } from "./calendarutils";
 </script>
