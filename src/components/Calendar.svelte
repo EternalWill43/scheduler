@@ -35,7 +35,7 @@
   $: defaultId;
   $: day = dayjs($store?.selected).format("MM/DD/YYYY");
 
-  onMount(() => (day = dayjs($store?.selected).format("MM/DD/YYYY")));
+  // onMount(() => (day = dayjs($store?.selected).format("MM/DD/YYYY")));
 
   async function sortEmployees(value) {
     empList = await Promise.resolve(empList).then((data) => {
