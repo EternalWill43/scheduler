@@ -26,8 +26,6 @@
     "Saturday",
   ];
   let shifts = ["2200", "0600", "1400", "All Shifts", "1000", "1800"];
-  $: day = dayjs($store?.selected).format("MM/DD/YYYY");
-  onMount(() => (day = dayjs($store?.selected).format("MM/DD/YYYY")));
   let defaultId = 3;
   let currentShift = "2200";
   let defaultShift = 0;
@@ -35,6 +33,9 @@
   $: currentShift;
   $: currentDepartment;
   $: defaultId;
+  $: day = dayjs($store?.selected).format("MM/DD/YYYY");
+
+  onMount(() => (day = dayjs($store?.selected).format("MM/DD/YYYY")));
 
   async function sortEmployees(value) {
     empList = await Promise.resolve(empList).then((data) => {
@@ -167,8 +168,9 @@
           {store}
           {currentDepartment}
           {otList}
+          {day}
           {defaultId}
-          shift="2200"
+          shift="0"
         />
       {/each}
     </div>
@@ -185,7 +187,7 @@
           {currentDepartment}
           {otList}
           {defaultId}
-          shift="0600"
+          shift="1"
         />
       {/each}
     </div>
@@ -202,7 +204,7 @@
           {currentDepartment}
           {otList}
           {defaultId}
-          shift="1000"
+          shift="4"
         />
       {/each}
     </div>
@@ -219,7 +221,7 @@
           {currentDepartment}
           {otList}
           {defaultId}
-          shift="1400"
+          shift="2"
         />
       {/each}
     </div>
@@ -236,7 +238,7 @@
           {currentDepartment}
           {otList}
           {defaultId}
-          shift="1800"
+          shift="5"
         />
       {/each}
     </div>
@@ -303,9 +305,6 @@
 {/if}
 
 <style>
-  .col-auto :global(.datepicker .sc-popover .contents-wrapper) {
-    z-index: 3;
-  }
   .table th:first-child {
     position: relative !important;
     z-index: 0 !important;
