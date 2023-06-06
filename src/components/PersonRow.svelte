@@ -1,5 +1,4 @@
 <script>
-  import ContextMenu from "./ContextMenu.svelte";
   export let person = {};
   export let i = 0;
   export let defaultId;
@@ -44,11 +43,7 @@
     newDiv.style.position = "absolute";
     newDiv.style.top = `${m.y + window.scrollY}px`;
     newDiv.style.left = `${m.x + window.scrollX}px`;
-    newDiv.style.backgroundColor = "white";
-    newDiv.style.border = "1px solid black";
-    newDiv.style.borderRadius = "5px";
-    newDiv.style.padding = "5px";
-    newDiv.style.zIndex = 1000;
+    newDiv.classList.add("context-menu");
     let innerButton = document.createElement("button");
     innerButton.setAttribute("class", "btn btn-primary");
     innerButton.innerHTML = "Vacation";
@@ -75,3 +70,14 @@
     >
   </tr>
 {/if}
+
+<style>
+  :global(.context-menu) {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1000;
+  }
+</style>
