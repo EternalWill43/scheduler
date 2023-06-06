@@ -50,14 +50,18 @@ export function changeInner(
             department: department,
             date: dateString,
           }),
-        }).then((res) => console.log(res));
+        }).then(() => location.reload());
       } else {
         ele.classList.add("not-printable");
         console.log("Hmm");
       }
       inputElement.remove();
+    } else if (e.key === " ") {
+      inputElement.value += " ";
+      e.preventDefault();
     }
   });
   ele.appendChild(inputElement);
+  inputElement.value += " ";
   inputElement.focus();
 }

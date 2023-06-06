@@ -12,9 +12,9 @@
   import { changeInner, removeOT } from "./calendarutils";
 </script>
 
-<div class="overflow-x-visible">
+<div style="z-index: 0;" class="overflow-x-visible">
   <table class="table table-zebra printable">
-    <thead style="z-index: -1">
+    <thead style="z-index: -5">
       <th
         ><div>
           <div>{dayOfWeek}</div>
@@ -34,23 +34,25 @@
         {#if otInstance.date.includes(dayjs($store?.selected)
             .add(i - new Date($store?.selected).getDay(), "day")
             .format("MM/DD/YYYY")) && otInstance.shift === shift && otInstance.department === currentDepartment}
-          <td>
-            <div class="flex">
-              <div class="text-green-500">
-                {otInstance.name}
-                <button
-                  class="text-red-500"
-                  on:click={() => removeOT(otInstance.id)}
-                  >✖
-                </button>
-              </div>
-            </div></td
+          <tr>
+            <td>
+              <div class="flex">
+                <div class="text-green-500">
+                  {otInstance.name}
+                  <button
+                    class="text-red-500 not-printable"
+                    on:click={() => removeOT(otInstance.id)}
+                    >✖
+                  </button>
+                </div>
+              </div></td
+            ></tr
           >
         {/if}
       {/each}
       <div />
       <tr
-        ><td class="text-green-500"
+        ><td class="text-blue-500"
           ><button
             class="not-printable"
             on:click={(e) =>
